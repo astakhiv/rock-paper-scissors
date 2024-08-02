@@ -15,6 +15,16 @@ function getComputerChoice() {
     */
     
     // Solution with array
-    return ["Rock", "Paper", "Scissors"][choice];
+    return ["rock", "paper", "scissors"][choice];
 }
 
+function getHumanChoice() {
+    let choice;
+
+    while (choice !== "rock" && choice !== "paper" && choice !== "scissors") {
+        
+        choice = prompt("Please, make a choice: Rock, Paper or Scissors").toLowerCase();
+    }
+
+    console.log(choice);
+}
