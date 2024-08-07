@@ -3,31 +3,7 @@ console.log("Hello, World");
 function getComputerChoice() {
     const choice = Math.floor(Math.random() * 3);
     
-    // Solution without array
-    /*
-    if (choice === 0) {
-        return "Rock";
-    } else if (choice === 1) {
-        return "Paper";
-    } else {
-        return "Scissors";
-    }
-    */
-    
-    // Solution with array
     return ["rock", "paper", "scissors"][choice];
-}
-
-function getHumanChoice() {
-    let choice;
-
-    while (choice !== "rock" && choice !== "paper" && choice !== "scissors") {
-        
-        choice = prompt("Please, make a choice: Rock, Paper or Scissors").toLowerCase();
-    }
-
-    console.log(choice);
-    return choice;
 }
 
 function didHumanWin(human, computer) {
@@ -47,44 +23,47 @@ function capitalize(str) {
 }
 
 function playRound(humanChoice, computerChoice) {
+    let msg = ""; 
     if (humanChoice === computerChoice) {
-        console.log("It is a tie");
+        msg = "It is a tie";
     } else if (didHumanWin(humanChoice, computerChoice)){
         humanScore++;
-        console.log(`You win! ${capitalize(humanChoice)} beats ${capitalize(computerChoice)}`);
+        msg = `You win! ${capitalize(humanChoice)} beats ${capitalize(computerChoice)}`;
     } else {
         computerScore++;
-        console.log(`You lose! ${capitalize(computerChoice)} beats ${capitalize(humanChoice)}`);
+        msg = `You lose! ${capitalize(computerChoice)} beats ${capitalize(humanChoice)}`;
+    }
+    
+    const p = document.createElement("p");
+    p.textContent = msg;
+
+    msgs.appendChild(p);
+    score.textContent = `Score: ${humanScore}:${computerScore}`;
+}
+
+
+function finishGame(buttons) {
+    buttons.forEach(button => button.setAttribute("disabled", true));
+   
+    let msg = "";
+    if (humanScore > computerScore) {
+        msg = `You won with a score of ${humanScore}:${computerScore}`;
+    } else {
+        msg = `You lost with a score of ${humanScore}:${computerScore}`;
     }
 
-    console.log(`Score: ${humanScore}:${computerScore}`);
+    const p = document.createElement("p");
+    p.textContent = msg;
+    msgs.appendChild(p);
+
 }
 
 let humanScore = 0;
 let computerScore = 0;
 
-
-function playGame() {
-    for (let i = 0; i < 5; i++) {
-        const humanChoice = getHumanChoice();
-        const computerChoice = getComputerChoice();
-        playRound(humanChoice, computerChoice);
-    }
-
-    }
-
-function finishGame(buttons) {
-    buttons.forEach(button => button.setAttribute("disabled", true));
-    
-    if (humanScore > computerScore) {
-        console.log(`You won with a score of ${humanScore}:${computerScore}`);
-    } else {
-        console.log(`You lost with a score of ${humanScore}:${computerScore}`);
-    }
-
-}
-
 const buttons = document.querySelectorAll("button");
+const msgs = document.querySelector(".messages");
+const score = document.querySelector(".score");
 
 buttons.forEach(button => {
     button.addEventListener('click', () => { 
