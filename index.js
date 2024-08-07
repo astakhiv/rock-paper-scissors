@@ -71,11 +71,31 @@ function playGame() {
         playRound(humanChoice, computerChoice);
     }
 
+    }
+
+function finishGame(buttons) {
+    buttons.forEach(button => button.setAttribute("disabled", true));
+    
     if (humanScore > computerScore) {
         console.log(`You won with a score of ${humanScore}:${computerScore}`);
     } else {
         console.log(`You lost with a score of ${humanScore}:${computerScore}`);
     }
+
 }
 
-playGame();
+const buttons = document.querySelectorAll("button");
+
+buttons.forEach(button => {
+    button.addEventListener('click', () => { 
+        const computerChoice = getComputerChoice();
+        const humanChoice = button.textContent.toLowerCase();
+
+        playRound(humanChoice, computerChoice);
+        
+        if (humanScore >= 5 || computerScore >= 5) {
+            finishGame(buttons);
+        }
+
+    });
+});
