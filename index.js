@@ -55,6 +55,7 @@ function finishGame(buttons) {
     const p = document.createElement("p");
     p.textContent = msg;
     msgs.appendChild(p);
+    score.textContent = msg;
 
 }
 
@@ -68,7 +69,7 @@ const score = document.querySelector(".score");
 buttons.forEach(button => {
     button.addEventListener('click', () => { 
         const computerChoice = getComputerChoice();
-        const humanChoice = button.textContent.toLowerCase();
+        const humanChoice = button.id;
 
         playRound(humanChoice, computerChoice);
         
